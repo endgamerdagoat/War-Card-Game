@@ -8,7 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State var playerCard = "back"
+    @State var cpuCard = "back"
+    
+    @State var playerScore = 0
+    @State var cpuScore = 0
+    
+    
     var body: some View {
+
         ZStack {
             Image("background-cloth")
                 .resizable()
@@ -18,13 +27,19 @@ struct ContentView: View {
                 Image("logo")
                 HStack {
                     Spacer()
-                    Image("back")
+                    Image(playerCard)
                     Spacer()
-                    Image("back")
+                    Image(cpuCard)
                     Spacer()
                 }.padding()
                 
-                Image("button")
+                Button {
+                    deal()
+                } label: {
+                    Image("button")
+                }
+                
+                
                 VStack {
                     HStack {
                         Spacer()
@@ -38,15 +53,15 @@ struct ContentView: View {
                     
                     HStack {
                         Spacer()
-                        Text("0")
+                        Text(String(playerScore))
                             .font(.largeTitle)
                         Spacer()
-                        Text("0")
+                        Text(String(cpuScore))
                             .font(.largeTitle)
                         Spacer()
                     }
                     .padding()
- 
+                    
                 }
                 .foregroundColor(Color.white)
                 .fontWeight(.bold)
@@ -54,6 +69,25 @@ struct ContentView: View {
             
         }
     }
+    
+    
+    func deal() {
+        let pCardValue = Int.random(in: 2...14)
+        let cCardValue = Int.random(in: 2...14)
+        playerCard = "card" + String(pCardValue)
+        cpuCard = "card" + String(cCardValue)
+        
+        if pCardValue > cCardValue {
+            playerScore+=1
+        }
+        
+        if cCardValue > pCardValue {
+            cpuScore+=1
+        }
+
+    }
+    
+    
 }
 
 #Preview {
